@@ -1,0 +1,5 @@
+# One Loader row: the Host half is a no-op, the browser bundle is discovered
+# through package.json#dsh.client.
+- insert:
+    - id: dsh-plan-note
+      name: 'dsh-plan-note'
