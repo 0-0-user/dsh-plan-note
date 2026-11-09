@@ -13,43 +13,57 @@ Select a passage, write a comment, send one structured review — the agent stay
 [![DSH](https://img.shields.io/badge/DeepSeek%20Harness-0.2.x-4D6BFE?style=flat-square)](https://github.com/deepseek-ai/deepseek-harness)
 [![Release](https://img.shields.io/github/v/release/0-0-user/dsh-plan-note?style=flat-square&label=release)](https://github.com/0-0-user/dsh-plan-note/releases)
 
-[**Quick start**](#quick-start) · [**Usage**](#usage) · [**Limits**](#compatibility-and-limits) · [**Releases**](https://github.com/0-0-user/dsh-plan-note/releases) · [中文](README.zh-CN.md)
+[**Quick start**](#quick-start) · [**Usage**](#usage) · [**Limits**](#limits) · [**Releases**](https://github.com/0-0-user/dsh-plan-note/releases) · [中文](README.zh-CN.md)
 
 </div>
 
 ---
 
-## Intro
+<a id="intro"></a>
+
+<img src="docs/sections/en/01-intro.png" width="100%" alt="Intro" />
 
 DSH's plan gate gives you two buttons: **approve** or **ask for changes**. That is too coarse for a plan with several unrelated problems — "change step three" loses the sentence it refers to.
 
 `dsh-plan-note` keeps every comment attached to the exact passage it talks about, then sends them back as one structured review. It is inspired by the *Add comment* flow in Claude Code's plan review.
 
-## Contents
+### Screenshots
+
+| | |
+|---|---|
+| ![review](docs/01-review.png) | ![comments](docs/02-comments.png) |
+
+> Captured from a real session; drop the images into `docs/`.
+
+<a id="index"></a>
+
+<img src="docs/sections/en/02-index.png" width="100%" alt="Contents" />
 
 <table>
 <tr>
 <td width="60%" valign="middle">
 
-- [Main features](#main-features)
-- [Where it helps](#where-it-helps)
+- [Main features](#features)
+- [Where it helps](#use-cases)
 - [Quick start](#quick-start)
 - [Usage](#usage)
-- [Compatibility and limits](#compatibility-and-limits)
-- [Development](#development)
-- [Acknowledgements](#acknowledgements)
+- [Compatibility and limits](#limits)
+- [Development](#dev)
+- [Acknowledgements](#thanks)
 - [Feedback](#feedback)
 
 </td>
 <td width="40%" align="center" valign="middle">
 
-<img src="docs/whale.gif" width="260" alt="cartoon whale" />
+<img src="docs/mark.png" width="240" alt="DeepSeek whale mark" />
 
 </td>
 </tr>
 </table>
 
-## Main features
+<a id="features"></a>
+
+<img src="docs/sections/en/03-features.png" width="100%" alt="Main features" />
 
 | | |
 |---|---|
@@ -60,29 +74,33 @@ DSH's plan gate gives you two buttons: **approve** or **ask for changes**. That 
 | **Draft protection** | Unsent comments survive a refresh; approving is blocked while feedback is pending |
 | **Native look** | Colours, borders and font size inherit the host theme; the plan uses the host's Markdown renderer |
 
-## Where it helps
+<a id="use-cases"></a>
+
+<img src="docs/sections/en/04-use-cases.png" width="100%" alt="Where it helps" />
 
 - Multi-step implementation plans where several details must be fixed before any code is written.
 - Migrations, API changes and rollouts where compatibility, rollback and sequencing each need a note.
 - Any review where "looks fine" and "not fine" are not the only two answers.
 
-## Quick start
+<a id="quick-start"></a>
+
+<img src="docs/sections/en/05-quick-start.png" width="100%" alt="Quick start" />
 
 Requires DSH 0.2.x with the web client. Pick one install path.
 
-### GitHub
+**GitHub**
 
 ```bash
 dsh plugin --profile <profile> add github:0-0-user/dsh-plan-note
 ```
 
-### npm
+**npm**
 
 ```bash
 dsh plugin --profile <profile> add dsh-plan-note
 ```
 
-### Ask your agent
+**Ask your agent**
 
 ```text
 Install the plugin `dsh-plan-note` for me, then restart DSH:
@@ -94,7 +112,9 @@ If the profile is not obvious, ask me which one to use.
 
 Restart DSH (or hard-reload the web UI) after installing.
 
-## Usage
+<a id="usage"></a>
+
+<img src="docs/sections/en/06-usage.png" width="100%" alt="Usage" />
 
 ### A full round
 
@@ -128,7 +148,7 @@ Restart DSH (or hard-reload the web UI) after installing.
 - Switching sessions leaves the review answerable; the plugin re-registers when you come back.
 - Approving with pending comments is intentionally blocked.
 
-## What the agent receives
+### What the agent receives
 
 ```markdown
 ## 计划批注（2 条）
@@ -143,48 +163,43 @@ Restart DSH (or hard-reload the web UI) after installing.
 ……
 ```
 
-## Screenshots
+<a id="limits"></a>
 
-| | |
-|---|---|
-| ![review](docs/01-review.png) | ![comments](docs/02-comments.png) |
-
-> Captured from a real session; drop the images into `docs/`.
-
-## Compatibility and limits
+<img src="docs/sections/en/07-limits.png" width="100%" alt="Compatibility and limits" />
 
 - Targets DSH **0.2.2-rc.1** APIs (`conversation.composer`, `sidebar.right.pane.tab`); a future kernel may change them.
 - Web client only — there is no terminal UI.
 - A selection spanning bold or links may fail to highlight; the comment itself is never lost.
 - The plan is rendered as Markdown, so annotations anchor to rendered text rather than character offsets.
 
-## Development
+<a id="dev"></a>
+
+<img src="docs/sections/en/08-dev.png" width="100%" alt="Development" />
 
 Plain JavaScript, no build step.
 
 ```
-lib/client.js        browser bundle (ModuleLoader contract)
-lib/index.js         empty host half
-cordis.patch.yml     one loader row
-tools/make_whale.py  regenerates docs/whale.gif
-docs/                banner and screenshots
-```
-
-Regenerate the banner:
-
-```bash
-python tools/make_whale.py
+lib/client.js           browser bundle (ModuleLoader contract)
+lib/index.js            empty host half
+cordis.patch.yml        one loader row
+tools/make_hero.py      generates docs/hero.png
+tools/make_sections.py  generates the section banners
+docs/                   banner, mark and screenshots
 ```
 
 Issues and pull requests are welcome. Please keep the bundle dependency-free.
 
-## Acknowledgements
+<a id="thanks"></a>
+
+<img src="docs/sections/en/09-thanks.png" width="100%" alt="Acknowledgements" />
 
 - [Claude Code](https://www.anthropic.com/claude-code) — the inline *Add comment* flow that inspired this plugin.
 - [DeepSeek Harness](https://github.com/deepseek-ai/deepseek-harness) — the plugin platform and its slot APIs.
-- The whale banner is a fan-made cartoon based on DeepSeek's logo.
+- The whale mark is DeepSeek's; the banner is a fan-made composition around it.
 
-## Feedback
+<a id="feedback"></a>
+
+<img src="docs/sections/en/10-feedback.png" width="100%" alt="Feedback" />
 
 Open an issue: <https://github.com/0-0-user/dsh-plan-note/issues>
 

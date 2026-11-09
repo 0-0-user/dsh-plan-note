@@ -13,43 +13,57 @@
 [![DSH](https://img.shields.io/badge/DeepSeek%20Harness-0.2.x-4D6BFE?style=flat-square)](https://github.com/deepseek-ai/deepseek-harness)
 [![Release](https://img.shields.io/github/v/release/0-0-user/dsh-plan-note?style=flat-square&label=release)](https://github.com/0-0-user/dsh-plan-note/releases)
 
-[**快速开始**](#快速开始) · [**使用**](#使用) · [**限制**](#兼容与限制) · [**发布页**](https://github.com/0-0-user/dsh-plan-note/releases) · [English](README.md)
+[**快速开始**](#quick-start) · [**使用**](#usage) · [**限制**](#limits) · [**发布页**](https://github.com/0-0-user/dsh-plan-note/releases) · [English](README.md)
 
 </div>
 
 ---
 
-## 简介
+<a id="intro"></a>
+
+<img src="docs/sections/zh/01-intro.png" width="100%" alt="简介" />
 
 DSH 原生的计划评审只有两个按钮：**同意** 或 **要求修改**。当一个计划有三五处互不相关的问题时，「改一下第三步」这种话说不清指的是哪一句。
 
 `dsh-plan-note` 让每条意见都钉在对应的原文上，最后汇总成一份结构化反馈发回去。灵感来自 Claude Code 计划评审里的 *Add comment*。
 
-## 目录
+### 截图
+
+| | |
+|---|---|
+| ![评审界面](docs/01-review.png) | ![批注列表](docs/02-comments.png) |
+
+> 取自真实会话；把图片放进 `docs/` 即可。
+
+<a id="index"></a>
+
+<img src="docs/sections/zh/02-index.png" width="100%" alt="目录" />
 
 <table>
 <tr>
 <td width="60%" valign="middle">
 
-- [主要能力](#主要能力)
-- [适用场景](#适用场景)
-- [快速开始](#快速开始)
-- [使用](#使用)
-- [兼容与限制](#兼容与限制)
-- [开发](#开发)
-- [致谢](#致谢)
-- [反馈](#反馈)
+- [主要能力](#features)
+- [适用场景](#use-cases)
+- [快速开始](#quick-start)
+- [使用](#usage)
+- [兼容与限制](#limits)
+- [开发](#dev)
+- [致谢](#thanks)
+- [反馈](#feedback)
 
 </td>
 <td width="40%" align="center" valign="middle">
 
-<img src="docs/whale.gif" width="260" alt="卡通鲸鱼" />
+<img src="docs/mark.png" width="240" alt="DeepSeek 鲸鱼标" />
 
 </td>
 </tr>
 </table>
 
-## 主要能力
+<a id="features"></a>
+
+<img src="docs/sections/zh/03-features.png" width="100%" alt="主要能力" />
 
 | | |
 |---|---|
@@ -60,29 +74,33 @@ DSH 原生的计划评审只有两个按钮：**同意** 或 **要求修改**。
 | **草稿保护** | 未发送的批注刷新不丢；有未发送反馈时禁止批准 |
 | **跟随主题** | 配色、边框、字号继承宿主；计划用宿主自己的 Markdown 渲染器 |
 
-## 适用场景
+<a id="use-cases"></a>
+
+<img src="docs/sections/zh/04-use-cases.png" width="100%" alt="适用场景" />
 
 - 多步骤实施方案：动手写代码之前，需要把好几处细节先定下来。
 - 迁移、接口变更、灰度发布：兼容性、回滚条件、推进顺序各需要一条意见。
 - 任何「还行」和「不行」两个答案不够用的评审。
 
-## 快速开始
+<a id="quick-start"></a>
+
+<img src="docs/sections/zh/05-quick-start.png" width="100%" alt="快速开始" />
 
 需要 DSH 0.2.x 的 Web 客户端。三条路选一条。
 
-### GitHub
+**GitHub**
 
 ```bash
 dsh plugin --profile <profile> add github:0-0-user/dsh-plan-note
 ```
 
-### npm
+**npm**
 
 ```bash
 dsh plugin --profile <profile> add dsh-plan-note
 ```
 
-### 让 agent 装
+**让 agent 装**
 
 ```text
 帮我装一下 dsh-plan-note 插件，装完重启 DSH：
@@ -94,7 +112,9 @@ dsh plugin --profile <profile> add dsh-plan-note
 
 安装后重启 DSH（或硬刷新网页端）。
 
-## 使用
+<a id="usage"></a>
+
+<img src="docs/sections/zh/06-usage.png" width="100%" alt="使用" />
 
 ### 完整一轮
 
@@ -128,7 +148,7 @@ dsh plugin --profile <profile> add dsh-plan-note
 - 切换会话时评审仍可回答，切回来插件重新接管
 - 带着批注点同意会被拒绝，要先发出去或删掉
 
-## agent 收到的内容
+### agent 收到的内容
 
 ```markdown
 ## 计划批注（2 条）
@@ -143,48 +163,43 @@ dsh plugin --profile <profile> add dsh-plan-note
 ……
 ```
 
-## 截图
+<a id="limits"></a>
 
-| | |
-|---|---|
-| ![评审界面](docs/01-review.png) | ![批注列表](docs/02-comments.png) |
-
-> 取自真实会话；把图片放进 `docs/` 即可。
-
-## 兼容与限制
+<img src="docs/sections/zh/07-limits.png" width="100%" alt="兼容与限制" />
 
 - 依赖 DSH **0.2.2-rc.1** 的 `conversation.composer` 与 `sidebar.right.pane.tab`，内核升级后可能失效
 - 只在 Web 客户端可用，没有终端界面
 - 跨加粗或链接的选区可能定位不到高亮，批注内容不会丢
 - 计划按 Markdown 渲染，批注锚定的是渲染后的文字
 
-## 开发
+<a id="dev"></a>
+
+<img src="docs/sections/zh/08-dev.png" width="100%" alt="开发" />
 
 纯 JavaScript，无构建步骤。
 
 ```
-lib/client.js        浏览器端 bundle（ModuleLoader 约定）
-lib/index.js         空的宿主半身
-cordis.patch.yml     一行 loader 条目
-tools/make_whale.py  重新生成 docs/whale.gif
-docs/                横幅与截图
-```
-
-重新生成横幅：
-
-```bash
-python tools/make_whale.py
+lib/client.js           浏览器端 bundle（ModuleLoader 约定）
+lib/index.js            空的宿主半身
+cordis.patch.yml        一行 loader 条目
+tools/make_hero.py      生成 docs/hero.png
+tools/make_sections.py  生成章节横幅
+docs/                   横幅、鲸鱼标与截图
 ```
 
 欢迎提 issue 和 PR，请保持 bundle 无依赖。
 
-## 致谢
+<a id="thanks"></a>
+
+<img src="docs/sections/zh/09-thanks.png" width="100%" alt="致谢" />
 
 - [Claude Code](https://www.anthropic.com/claude-code)——本插件的 *Add comment* 交互灵感来源
 - [DeepSeek Harness](https://github.com/deepseek-ai/deepseek-harness)——插件平台与其 slot API
-- 横幅鲸鱼是参考 DeepSeek logo 重绘的粉丝作品
+- 鲸鱼标属于 DeepSeek；横幅是围绕它做的粉丝构图
 
-## 反馈
+<a id="feedback"></a>
+
+<img src="docs/sections/zh/10-feedback.png" width="100%" alt="反馈" />
 
 提 issue：<https://github.com/0-0-user/dsh-plan-note/issues>
 

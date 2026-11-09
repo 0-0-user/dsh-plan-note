@@ -9,6 +9,7 @@ W, H = 1440, 560
 SS = 2
 
 BG = (13, 17, 23)
+BLUE = (77, 107, 254)
 FRAME = (58, 74, 99)
 FRAME_DARK = (32, 41, 56)
 BAR = (21, 27, 38)
@@ -28,6 +29,28 @@ STEEL_DARK = (28, 44, 66)
 FONT_MONO = r"C:\Windows\Fonts\consola.ttf"
 FONT_MONO_B = r"C:\Windows\Fonts\consolab.ttf"
 FONT_ZH = r"C:\Windows\Fonts\msyhbd.ttc"
+FONT_ROUND = r"C:\Windows\Fonts\ARLRDBD.TTF"
+LOGO = r"D:\opt\tmp\ds-logo\logo.png"
+
+
+def load_glyph(height):
+    """Official whale mark, recoloured to brand blue, cutouts preserved."""
+    src = Image.open(LOGO).convert("RGBA").crop((0, 0, 220, 165))
+    px = src.load()
+    mask = Image.new("L", src.size, 0)
+    mp = mask.load()
+    for y in range(src.height):
+        for x in range(src.width):
+            r, g, b, a = px[x, y]
+            if a > 128 and b > 200 and r < 160:
+                mp[x, y] = 255
+    box = mask.getbbox()
+    mask = mask.crop(box)
+    scale = height / mask.height
+    mask = mask.resize((max(1, int(mask.width * scale)), height), Image.LANCZOS)
+    out = Image.new("RGBA", mask.size, BLUE + (255,))
+    out.putalpha(mask)
+    return out
 
 
 def font(path, size):
@@ -146,7 +169,11 @@ def main():
         x = u(62 + i * 30)
         d.rectangle([x, u(58), x + u(16), u(74)], fill=color)
 
-    d.text((u(160), u(53)), "DSH  //  PLAN-NOTE", font=font(FONT_MONO_B, u(22)), fill=MUTED)
+    # brand lockup in the title bar: official whale + wordmark
+    glyph = load_glyph(u(26))
+    img.alpha_composite(glyph, (u(158), u(51)))
+    f_brand = font(FONT_ROUND, u(25))
+    d.text((u(158) + glyph.width + u(10), u(51)), "deepseek harness", font=f_brand, fill=BLUE)
 
     for i in range(52):
         x = u(760 + i * 7)
@@ -205,9 +232,9 @@ def main():
     badge(106, "NODE.JS 22.19+")
     badge(262, "MIT")
 
-    # art
-    whale = draw_whale((int(u(440)), int(u(310))))
-    img.alpha_composite(whale, (u(div_x + 46), u(py0 + 34)))
+    # art: the same official mark, large
+    big = load_glyph(u(250))
+    img.alpha_composite(big, (u(div_x + (px1 - div_x - big.width / SS) / 2), u(py0 + (py1 - py0 - big.height / SS) / 2)))
 
     os.makedirs(os.path.dirname(out), exist_ok=True)
     img.convert("RGB").save(out, quality=95)
