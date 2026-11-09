@@ -1,102 +1,98 @@
 <div align="center">
 
-<img src="docs/whale.gif" width="460" alt="dsh-plan-note whale" />
+<img src="docs/whale.gif" width="420" alt="dsh-plan-note" />
 
 # dsh-plan-note
 
 **Inline annotations for DeepSeek Harness plan review.**
 
-Select text → write a comment → send one structured review. The agent stays in plan mode and revises.
+Select a passage, write a comment, send one structured review — the agent stays in plan mode and revises.
 
-<br/>
-
-[![DeepSeek Harness](https://img.shields.io/badge/DeepSeek%20Harness-0.2.x-4D6BFE?style=flat-square)](https://github.com/deepseek-ai/deepseek-harness)
-[![npm](https://img.shields.io/npm/v/dsh-plan-note?style=flat-square)](https://www.npmjs.com/package/dsh-plan-note)
+[![npm](https://img.shields.io/npm/v/dsh-plan-note?style=flat-square&logo=npm&color=4D6BFE)](https://www.npmjs.com/package/dsh-plan-note)
 [![License](https://img.shields.io/badge/license-MIT-2ea44f?style=flat-square)](LICENSE)
-[![Plugin](https://img.shields.io/badge/type-web%20client%20plugin-4D6BFE?style=flat-square)](#how-it-works)
+[![DSH](https://img.shields.io/badge/DeepSeek%20Harness-0.2.x-4D6BFE?style=flat-square)](https://github.com/deepseek-ai/deepseek-harness)
+[![Release](https://img.shields.io/github/v/release/0-0-user/dsh-plan-note?style=flat-square&label=release)](https://github.com/0-0-user/dsh-plan-note/releases)
 
-[中文](README.zh-CN.md) · **English**
+[**Quick start**](#quick-start) · [**Usage**](#usage) · [**Limits**](#compatibility-and-limits) · [**Releases**](https://github.com/0-0-user/dsh-plan-note/releases) · [中文](README.zh-CN.md)
 
 </div>
 
 ---
 
-## Why
+## Intro
 
-DSH's plan gate is binary: **approve** or **ask for changes**. That is too coarse when a plan has several unrelated problems — "change step three" loses the sentence it refers to.
+DSH's plan gate gives you two buttons: **approve** or **ask for changes**. That is too coarse for a plan with several unrelated problems — "change step three" loses the sentence it refers to.
 
-> **Inspiration.** This plugin borrows the inline-comment experience from Claude Code's plan review: select a sentence, attach a remark, and let the agent see exactly what you meant. `dsh-plan-note` brings that interaction to DSH.
+`dsh-plan-note` keeps every comment attached to the exact passage it talks about, then sends them back as one structured review. It is inspired by the *Add comment* flow in Claude Code's plan review.
 
-`dsh-plan-note` keeps every comment attached to the exact passage it talks about, and sends them back as one structured review.
+## Contents
 
-## Features
+<table>
+<tr>
+<td width="60%" valign="middle">
 
-### Anchored comments
+- [Main features](#main-features)
+- [Where it helps](#where-it-helps)
+- [Quick start](#quick-start)
+- [Usage](#usage)
+- [Compatibility and limits](#compatibility-and-limits)
+- [Development](#development)
+- [Acknowledgements](#acknowledgements)
+- [Feedback](#feedback)
 
-- Drag over any passage of the plan; the quote is captured with the comment.
-- The quote is shown in the comment list, so you always know what you reacted to.
-- Click **定位** to scroll back to that passage; the passage is underlined in red while the comment exists.
+</td>
+<td width="40%" align="center" valign="middle">
 
-### Multi-comment review
+<img src="docs/whale.gif" width="260" alt="cartoon whale" />
 
-- Collect as many comments as you need across headings, paragraphs, lists and code blocks.
-- Each comment can be edited before sending (delete and re-add) and carries its own note.
-- An optional **整体意见** box holds feedback that does not belong to a single passage.
+</td>
+</tr>
+</table>
 
-### One structured review
+## Main features
 
-- **发送批注** turns everything into a single Markdown block and returns it through DSH's existing question channel.
-- The agent stays in **plan mode** and can immediately produce a revised plan for another round.
-- Approving later is still possible: **同意执行** sends the approve label directly.
+| | |
+|---|---|
+| **Anchored comments** | Drag over any passage; the quote is stored with the comment and shown in the list |
+| **Multiple comments** | Collect as many as you need, locate each one, delete and rewrite freely |
+| **One review** | Everything is merged into a single Markdown block and returned through DSH's own question channel |
+| **Sidebar layout** | The plan opens in the right sidebar; the chat keeps only a slim action bar |
+| **Draft protection** | Unsent comments survive a refresh; approving is blocked while feedback is pending |
+| **Native look** | Colours, borders and font size inherit the host theme; the plan uses the host's Markdown renderer |
 
-### Sidebar-first layout
+## Where it helps
 
-- The plan opens in the right sidebar as a **plan notes** tab, not on top of the conversation.
-- The chat surface only keeps a slim bar: `计划批注 · N 条 · [发送批注] [同意执行] [关闭]`.
-- Sending or approving closes the sidebar automatically; the next review reopens it.
+- Multi-step implementation plans where several details must be fixed before any code is written.
+- Migrations, API changes and rollouts where compatibility, rollback and sequencing each need a note.
+- Any review where "looks fine" and "not fine" are not the only two answers.
 
-### Draft protection
+## Quick start
 
-- Unsent comments and the overall note are kept in the browser's session storage, per review.
-- Reloading the page does not lose your work.
-- While comments are unsent, **同意执行** and **关闭** are disabled, so feedback cannot be dropped silently.
+Requires DSH 0.2.x with the web client. Pick one install path.
 
-### Native look
-
-- Colours, borders and font size inherit the host theme; light and dark both work.
-- Markdown renders with the host's own renderer, so headings, lists, tables and code blocks look like the rest of DSH.
-
-## Install
-
-Pick whichever path fits you.
-
-### 1 · GitHub (works today)
+### GitHub
 
 ```bash
 dsh plugin --profile <profile> add github:0-0-user/dsh-plan-note
 ```
 
-Replace `<profile>` with your profile name (`desktop`, `web`, …). Restart DSH afterwards.
-
-### 2 · Ask your agent
-
-Paste this into any DSH session and let the agent do it:
-
-```text
-Install the plugin `dsh-plan-note` for me, then restart DSH:
-1. Find my active DSH profile (a folder under ~/.dsh/profiles).
-2. Run: dsh plugin --profile <that-profile> add github:0-0-user/dsh-plan-note
-3. Confirm dsh-plan-note 0.1.0 appears in the plugin list.
-If the profile is not obvious, ask me which one to use.
-```
-
-### 3 · npm
+### npm
 
 ```bash
 dsh plugin --profile <profile> add dsh-plan-note
 ```
 
-Published as [`dsh-plan-note`](https://www.npmjs.com/package/dsh-plan-note).
+### Ask your agent
+
+```text
+Install the plugin `dsh-plan-note` for me, then restart DSH:
+1. Find my active DSH profile (a folder under ~/.dsh/profiles).
+2. Run: dsh plugin --profile <that-profile> add dsh-plan-note
+3. Confirm dsh-plan-note 0.1.0 appears in the plugin list.
+If the profile is not obvious, ask me which one to use.
+```
+
+Restart DSH (or hard-reload the web UI) after installing.
 
 ## Usage
 
@@ -106,31 +102,31 @@ Published as [`dsh-plan-note`](https://www.npmjs.com/package/dsh-plan-note).
 2. Describe the task; the agent submits a plan and DSH opens the review.
 3. The plan appears in the right sidebar under **plan notes**; the chat shows the slim bar.
 4. Select a sentence, paragraph, list item or code line.
-5. A comment box appears under the plan: write the remark, press **添加批注**.
+5. Write the remark in the comment box and press **添加批注**.
 6. Repeat for every passage you want changed.
-7. Optionally write the overall note at the bottom.
+7. Optionally add the overall note at the bottom.
 8. Press **发送批注**. The sidebar closes and the agent receives the review.
 
-### What happens after you send
+### What happens after sending
 
 - The agent reads the quoted passages plus your notes and revises the plan.
-- Plan mode stays active, so it submits a **new plan** for another review round.
-- Your previous comments are cleared; the new plan starts with an empty list.
+- Plan mode stays active, so it submits a **new plan** for another round.
+- Previous comments are cleared; the new plan starts empty.
 
 ### The three buttons
 
-| Button | What it does | When it is available |
+| Button | Does | Available |
 |---|---|---|
-| 发送批注 | Sends every comment and the overall note as one structured review | Always |
-| 同意执行 | Approves the plan as-is and exits plan mode | Only when no comment is pending |
-| 关闭 | Dismisses the review; the agent returns to the normal composer | Only when no comment is pending |
+| 发送批注 | Sends all comments and the overall note as one review | Always |
+| 同意执行 | Approves the plan as-is and exits plan mode | Only with no pending comment |
+| 关闭 | Dismisses the review and returns the normal composer | Only with no pending comment |
 
-### Edge cases worth knowing
+### Edge cases
 
-- **Selection across bold or links** may not be highlighted after sending (the comment text itself is kept).
-- **Reloading the page** keeps unsent comments for the same review.
-- **Switching sessions** while a review is pending leaves the review answerable; the plugin re-registers when you come back.
-- **Approving with comments open** is intentionally blocked; delete or send them first.
+- A selection spanning bold or links may not highlight after sending; the comment text is kept.
+- Reloading the page keeps unsent comments for the same review.
+- Switching sessions leaves the review answerable; the plugin re-registers when you come back.
+- Approving with pending comments is intentionally blocked.
 
 ## What the agent receives
 
@@ -153,38 +149,45 @@ Published as [`dsh-plan-note`](https://www.npmjs.com/package/dsh-plan-note).
 |---|---|
 | ![review](docs/01-review.png) | ![comments](docs/02-comments.png) |
 
-> Screenshots are captured from a real session; drop them into `docs/`.
+> Captured from a real session; drop the images into `docs/`.
 
-## How it works
-
-- Registers a `conversation.composer` chain entry that claims only `plan-review` questions.
-- Renders the plan in a `sidebar.right.pane.tab` tab, using the host's `MarkdownText`.
-- Comments anchor to quoted text; highlights use the CSS Custom Highlight API.
-- Submitting answers the pending question with the quote + comment block — no host RPC, no network.
-
-## Known limitations
+## Compatibility and limits
 
 - Targets DSH **0.2.2-rc.1** APIs (`conversation.composer`, `sidebar.right.pane.tab`); a future kernel may change them.
-- A selection spanning bold or links may not highlight (the comment itself is kept).
-- The plugin is a web-client plugin; there is no terminal UI.
-
-## Uninstall
-
-```bash
-dsh plugin --profile <profile> remove dsh-plan-note
-```
-
-Removing it restores DSH's built-in plan review immediately.
+- Web client only — there is no terminal UI.
+- A selection spanning bold or links may fail to highlight; the comment itself is never lost.
+- The plan is rendered as Markdown, so annotations anchor to rendered text rather than character offsets.
 
 ## Development
 
-Plain JavaScript, no build step. `lib/client.js` is the browser bundle; `tools/make_whale.py` regenerates the banner.
+Plain JavaScript, no build step.
 
-## License
+```
+lib/client.js        browser bundle (ModuleLoader contract)
+lib/index.js         empty host half
+cordis.patch.yml     one loader row
+tools/make_whale.py  regenerates docs/whale.gif
+docs/                banner and screenshots
+```
 
-[MIT](LICENSE)
+Regenerate the banner:
+
+```bash
+python tools/make_whale.py
+```
+
+Issues and pull requests are welcome. Please keep the bundle dependency-free.
+
+## Acknowledgements
+
+- [Claude Code](https://www.anthropic.com/claude-code) — the inline *Add comment* flow that inspired this plugin.
+- [DeepSeek Harness](https://github.com/deepseek-ai/deepseek-harness) — the plugin platform and its slot APIs.
+- The whale banner is a fan-made cartoon based on DeepSeek's logo.
+
+## Feedback
+
+Open an issue: <https://github.com/0-0-user/dsh-plan-note/issues>
 
 ---
 
-<sub>Fan-made project. Not affiliated with or endorsed by DeepSeek. The whale banner is a cartoon inspired by DeepSeek's logo; DeepSeek and its marks belong to their owner.</sub>
-
+<sub>Fan-made project. Not affiliated with or endorsed by DeepSeek or Anthropic. Product names belong to their owners.</sub>
