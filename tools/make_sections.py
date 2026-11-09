@@ -1,38 +1,37 @@
 """Render section header banners for the README.
 
-Each banner is a dark bar with a khaki tag block, a title, a tick strip and a
-green marker - the same box language as the hero card.
+A different language from the hero: a blue index number, a bright title, a thin
+circuit of dots trailing to the right edge. No tag block, no tick strip.
 """
 
 import os
 
 from PIL import Image, ImageDraw, ImageFont
 
-W, H = 1440, 64
+W, H = 1440, 56
 SS = 2
 
-BG = (20, 24, 31)
-BORDER = (74, 74, 58)
-TAG = (143, 138, 111)
-TAG_TEXT = (27, 27, 20)
+BG = (16, 21, 32)
+EDGE = (27, 37, 54)
+BLUE = (77, 107, 254)
+CYAN = (86, 204, 242)
 TITLE = (236, 240, 247)
-TICK = (90, 90, 70)
-GREEN = (39, 201, 63)
+DOT = (34, 56, 88)
 
 FONT_MONO_B = r"C:\Windows\Fonts\consolab.ttf"
 FONT_ZH = r"C:\Windows\Fonts\msyhbd.ttc"
 
 SECTIONS = [
-    ("01", "intro", "INTRO", "简介", "Intro"),
-    ("02", "index", "INDEX", "目录", "Contents"),
-    ("03", "features", "FEATURES", "主要能力", "Main features"),
-    ("04", "use-cases", "USE CASES", "适用场景", "Where it helps"),
-    ("05", "quick-start", "GET", "快速开始", "Quick start"),
-    ("06", "usage", "USAGE", "使用", "Usage"),
-    ("07", "limits", "LIMITS", "兼容与限制", "Compatibility and limits"),
-    ("08", "dev", "DEV", "开发", "Development"),
-    ("09", "thanks", "THANKS", "致谢", "Acknowledgements"),
-    ("10", "feedback", "CONTACT", "反馈", "Feedback"),
+    ("01", "intro", "简介", "Intro"),
+    ("02", "index", "目录", "Contents"),
+    ("03", "features", "主要能力", "Main features"),
+    ("04", "use-cases", "适用场景", "Where it helps"),
+    ("05", "quick-start", "快速开始", "Quick start"),
+    ("06", "usage", "使用", "Usage"),
+    ("07", "limits", "兼容与限制", "Compatibility and limits"),
+    ("08", "dev", "开发", "Development"),
+    ("09", "thanks", "致谢", "Acknowledgements"),
+    ("10", "feedback", "反馈", "Feedback"),
 ]
 
 
@@ -40,32 +39,41 @@ def font(path, size):
     return ImageFont.truetype(path, size)
 
 
-def render(tag, title, zh):
+def render(number, title, zh):
     w, h = W * SS, H * SS
     img = Image.new("RGBA", (w, h), BG + (255,))
     d = ImageDraw.Draw(img)
 
-    d.rectangle([0, 0, w - 1, h - 1], outline=BORDER, width=SS)
+    # left accent: vertical blue -> cyan bar
+    for y in range(h):
+        k = y / max(1, h - 1)
+        color = (
+            int(BLUE[0] + (CYAN[0] - BLUE[0]) * k),
+            int(BLUE[1] + (CYAN[1] - BLUE[1]) * k),
+            int(BLUE[2] + (CYAN[2] - BLUE[2]) * k),
+        )
+        d.line([(0, y), (5 * SS, y)], fill=color)
 
-    tag_w = 150 * SS
-    d.rectangle([SS, SS, tag_w, h - SS], fill=TAG + (255,))
-    f_tag = font(FONT_MONO_B, 20 * SS)
-    tw = d.textlength(tag, font=f_tag)
-    d.text(((tag_w - tw) / 2, (h - 24 * SS) / 2), tag, font=f_tag, fill=TAG_TEXT)
+    # index number
+    f_num = font(FONT_MONO_B, 18 * SS)
+    d.text((28 * SS, (h - 20 * SS) / 2 - 2), number, font=f_num, fill=BLUE)
 
-    f_title = font(FONT_ZH, 26 * SS) if zh else font(FONT_MONO_B, 24 * SS)
-    tx = tag_w + 22 * SS
-    d.text((tx, (h - (30 if zh else 28) * SS) / 2), title, font=f_title, fill=TITLE)
+    # title
+    f_title = font(FONT_ZH, 24 * SS) if zh else font(FONT_MONO_B, 22 * SS)
+    tx = 78 * SS
+    d.text((tx, (h - (28 if zh else 26) * SS) / 2), title, font=f_title, fill=TITLE)
 
+    # circuit dots
     title_w = d.textlength(title, font=f_title)
-    tick_x = int(tx + title_w + 26 * SS)
-    tick_end = w - 60 * SS
-    x = tick_x
-    while x < tick_end:
-        d.line([(x, 20 * SS), (x, 44 * SS)], fill=TICK, width=SS)
-        x += 7 * SS
+    x = int(tx + title_w + 34 * SS)
+    end = w - 30 * SS
+    while x < end:
+        d.ellipse([x, h / 2 - 2 * SS, x + 4 * SS, h / 2 + 2 * SS], fill=DOT)
+        x += 22 * SS
 
-    d.rectangle([w - 44 * SS, 24 * SS, w - 28 * SS, 40 * SS], fill=GREEN)
+    # hairlines
+    d.line([(0, h - 1), (w, h - 1)], fill=EDGE, width=1)
+    d.line([(0, 0), (w, 0)], fill=EDGE, width=1)
 
     return img
 
@@ -73,17 +81,18 @@ def render(tag, title, zh):
 def main():
     here = os.path.dirname(os.path.abspath(__file__))
     root = os.path.join(here, "..", "docs", "sections")
-    for number, slug, tag, title_zh, title_en in SECTIONS:
+    for number, slug, title_zh, title_en in SECTIONS:
         for lang, title, zh in (("zh", title_zh, True), ("en", title_en, False)):
             out_dir = os.path.join(root, lang)
             os.makedirs(out_dir, exist_ok=True)
-            img = render(tag, title, zh)
+            img = render(number, title, zh)
             path = os.path.join(out_dir, f"{number}-{slug}.png")
             img.convert("RGB").save(path, optimize=True)
             print("wrote", path, os.path.getsize(path))
 
-    preview = render("FEATURES", "主要能力", True)
-    preview.convert("RGB").save(os.path.join(here, "..", "docs", "_section_preview.png"))
+    render("03", "主要能力", True).convert("RGB").save(
+        os.path.join(here, "..", "docs", "_section_preview.png")
+    )
 
 
 if __name__ == "__main__":
