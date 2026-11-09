@@ -1,97 +1,143 @@
-"""Render an animated DeepSeek-blue whale banner for the README."""
+"""Render a cartoon whale banner for the README.
+
+The design follows the DeepSeek whale: the same blue, the same two-lobed tail
+and a light belly patch. Motion, face and bubbles are added on top.
+"""
 
 import math
 import os
 
-from PIL import Image, ImageDraw
+from PIL import Image, ImageChops, ImageDraw, ImageFilter
 
-W, H = 880, 240
+W, H = 880, 260
 SS = 3
-FRAMES = 36
-DURATION = 90
+FRAMES = 40
+DURATION = 85
 
 BLUE = (77, 107, 254)
-DEEP = (43, 70, 210)
+DEEP = (36, 58, 176)
+BELLY = (196, 208, 255)
 WHITE = (255, 255, 255)
-INK = (11, 18, 32)
-BUBBLE = (127, 160, 255)
-PALETTE = [BLUE, DEEP, WHITE, INK, BUBBLE]
+INK = (16, 22, 40)
+BLUSH = (255, 150, 170)
+BUBBLE = (150, 180, 255)
+PALETTE = [BLUE, DEEP, BELLY, WHITE, INK, BLUSH, BUBBLE]
 
 
-def draw_frame(t):
-    w, h = W * SS, H * SS
-    img = Image.new("RGBA", (w, h), (0, 0, 0, 0))
-    d = ImageDraw.Draw(img)
+def build_whale(size, blink):
+    w, h = size
+    layer = Image.new("RGBA", (w, h), (0, 0, 0, 0))
+    d = ImageDraw.Draw(layer)
 
-    phase = t * 2 * math.pi
-    bob = 7 * math.sin(phase * 2)
-    cx = (W / 2 + 16 * math.sin(phase)) * SS
-    cy = (H / 2 + 10 + bob) * SS
+    bx, by = w * 0.60, h * 0.56
+    brx, bry = w * 0.33, h * 0.25
 
-    rx, ry = 168 * SS, 64 * SS
-
-    # tail: a solid wedge overlapping the body so there is no gap
-    wag = 0.22 * math.sin(phase * 2 + 0.7)
-    base_x = cx - rx * 0.72
-    tip_x = base_x - 96 * SS
-    up = (tip_x, cy - (58 + 26 * wag) * SS)
-    down = (tip_x, cy + (58 - 26 * wag) * SS)
-    d.polygon(
-        [
-            (base_x, cy - 24 * SS),
-            up,
-            (tip_x + 34 * SS, cy - 8 * SS),
-            (tip_x + 34 * SS, cy + 8 * SS),
-            down,
-            (base_x, cy + 24 * SS),
-        ],
-        fill=BLUE,
-    )
+    # tail: two rounded flukes, swept up-left
+    for sign, angle in ((-1, -0.38), (1, 0.26)):
+        fw, fh = w * 0.17, h * 0.105
+        cx, cy = bx - brx * 0.92, by + sign * h * 0.085
+        fluke = Image.new("RGBA", (int(fw * 2), int(fh * 2)), (0, 0, 0, 0))
+        fd = ImageDraw.Draw(fluke)
+        fd.ellipse([0, 0, fw * 2 - 1, fh * 2 - 1], fill=BLUE + (255,))
+        fluke = fluke.rotate(math.degrees(angle), expand=True, resample=Image.BICUBIC)
+        layer.alpha_composite(fluke, (int(cx - fluke.width / 2), int(cy - fluke.height / 2)))
 
     # body
-    d.ellipse([cx - rx, cy - ry, cx + rx, cy + ry], fill=BLUE)
-
-    # pectoral fin
-    d.polygon(
-        [
-            (cx - 26 * SS, cy + ry * 0.42),
-            (cx + 16 * SS, cy + ry * 0.92),
-            (cx - 14 * SS, cy + ry * 1.18),
-            (cx - 44 * SS, cy + ry * 0.78),
-        ],
-        fill=DEEP,
+    d.ellipse([bx - brx, by - bry, bx + brx, by + bry], fill=BLUE + (255,))
+    # snout
+    d.ellipse(
+        [bx + brx * 0.45, by - bry * 0.72, bx + brx * 1.12, by + bry * 0.62],
+        fill=BLUE + (255,),
     )
 
-    # eye: white sclera + dark pupil + glint
-    ex, ey = cx + rx * 0.56, cy - ry * 0.16
-    d.ellipse([ex - 13 * SS, ey - 13 * SS, ex + 13 * SS, ey + 13 * SS], fill=WHITE)
-    d.ellipse([ex - 6 * SS, ey - 6 * SS, ex + 6 * SS, ey + 6 * SS], fill=INK)
-    d.ellipse([ex + 1 * SS, ey - 5 * SS, ex + 5 * SS, ey - 1 * SS], fill=WHITE)
+    # belly patch, clipped to the body
+    body_mask = Image.new("L", (w, h), 0)
+    ImageDraw.Draw(body_mask).ellipse([bx - brx, by - bry, bx + brx, by + bry], fill=255)
+    belly = Image.new("RGBA", (w, h), (0, 0, 0, 0))
+    ImageDraw.Draw(belly).ellipse(
+        [bx - brx * 0.86, by + bry * 0.18, bx + brx * 0.90, by + bry * 0.98],
+        fill=BELLY + (255,),
+    )
+    belly.putalpha(ImageChops.multiply(belly.split()[3], body_mask))
+    layer = Image.alpha_composite(layer, belly)
+    d = ImageDraw.Draw(layer)
+
+    # pectoral fin, protruding from the lower body edge
+    d.polygon(
+        [
+            (bx - brx * 0.10, by + bry * 0.72),
+            (bx + brx * 0.22, by + bry * 1.28),
+            (bx - brx * 0.16, by + bry * 1.06),
+        ],
+        fill=DEEP + (255,),
+    )
+
+    # outline from the composed alpha
+    alpha = layer.split()[3]
+    grown = alpha.filter(ImageFilter.MaxFilter(11))
+    ring = Image.composite(Image.new("L", (w, h), 255), Image.new("L", (w, h), 0), grown)
+    ring = Image.composite(Image.new("L", (w, h), 0), ring, alpha)
+    outline = Image.new("RGBA", (w, h), DEEP + (255,))
+    outline.putalpha(ring)
+    layer = Image.alpha_composite(outline, layer)
+    d = ImageDraw.Draw(layer)
+
+    # eye
+    ex, ey = bx + brx * 0.30, by - bry * 0.18
+    er = h * 0.095
+    d.ellipse([ex - er, ey - er, ex + er, ey + er], fill=WHITE + (255,))
+    if blink:
+        d.arc([ex - er, ey - er * 0.4, ex + er, ey + er * 0.7], start=20, end=160, fill=INK + (255,), width=max(2, SS * 3))
+    else:
+        pr = er * 0.52
+        px, py = ex + er * 0.12, ey
+        d.ellipse([px - pr, py - pr, px + pr, py + pr], fill=INK + (255,))
+        gr = er * 0.18
+        d.ellipse([px - gr + pr * 0.25, py - gr - pr * 0.35, px + gr + pr * 0.25, py + gr - pr * 0.35], fill=WHITE + (255,))
 
     # smile
     d.arc(
-        [cx + rx * 0.60, cy + ry * 0.02, cx + rx * 0.94, cy + ry * 0.58],
-        start=15,
-        end=95,
-        fill=INK,
-        width=int(3 * SS),
+        [ex - er * 0.55, ey + er * 0.72, ex + er * 1.5, ey + er * 2.05],
+        start=18,
+        end=128,
+        fill=INK + (255,),
+        width=max(2, SS * 2),
     )
 
-    # blowhole spray
-    sx, sy = cx + rx * 0.18, cy - ry * 0.88
-    d.arc(
-        [sx - 20 * SS, sy - 34 * SS, sx + 20 * SS, sy + 6 * SS],
-        start=205,
-        end=335,
-        fill=DEEP,
-        width=int(4 * SS),
+    # blush
+    d.ellipse(
+        [ex - er * 1.75, ey + er * 0.45, ex - er * 1.05, ey + er * 1.05],
+        fill=BLUSH + (255,),
     )
+
+    return layer
+
+
+def draw_frame(t, whale):
+    w, h = W * SS, H * SS
+    img = Image.new("RGBA", (w, h), (0, 0, 0, 0))
+
+    index = int(t * FRAMES) % FRAMES
+    blink = index in (14, 15)
+    layer = build_whale(whale.size, blink) if blink else whale
+
+    phase = t * 2 * math.pi
+    bob = 8 * math.sin(phase * 2)
+    tilt = 2.2 * math.sin(phase * 2 + 0.5)
+    rotated = layer.rotate(tilt, resample=Image.BICUBIC, expand=True)
+
+    cx = int(w / 2 - rotated.width / 2 + 12 * math.sin(phase) * SS)
+    cy = int(h / 2 - rotated.height / 2 + (4 + bob) * SS)
+    img.alpha_composite(rotated, (cx, cy))
+
+    d = ImageDraw.Draw(img)
+    sx, sy = cx + rotated.width * 0.76, cy + rotated.height * 0.10
     for i in range(7):
-        bp = (phase + i * 0.42) % 1.0
-        bx2 = sx + math.sin(bp * 3.0 + i * 1.1) * 30 * SS
-        by2 = sy - 14 * SS - bp * 82 * SS
-        r = (2.2 + bp * 5.4) * SS
-        d.ellipse([bx2 - r, by2 - r, bx2 + r, by2 + r], fill=BUBBLE)
+        bp = (phase + i * 0.33) % 1.0
+        bx = sx + math.sin(bp * 3.1 + i * 1.3) * 26 * SS
+        by = sy - bp * 92 * SS
+        r = (2.0 + bp * 4.6) * SS
+        d.ellipse([bx - r, by - r, bx + r, by + r], fill=BUBBLE + (255,))
 
     return img.resize((W, H), Image.LANCZOS)
 
@@ -125,7 +171,10 @@ def main():
     out_dir = os.path.join(here, "..", "docs")
     os.makedirs(out_dir, exist_ok=True)
 
-    frames = [to_palette(draw_frame(i / FRAMES)) for i in range(FRAMES)]
+    size = (int(880 * SS * 0.55), int(260 * SS * 0.62))
+    whale = build_whale(size, False)
+    frames = [to_palette(draw_frame(i / FRAMES, whale)) for i in range(FRAMES)]
+
     gif_path = os.path.join(out_dir, "whale.gif")
     frames[0].save(
         gif_path,
@@ -139,7 +188,7 @@ def main():
     )
     print("wrote", gif_path, os.path.getsize(gif_path), "bytes")
 
-    draw_frame(0.25).convert("RGB").save(os.path.join(out_dir, "_whale_preview.png"))
+    draw_frame(0.3, whale).convert("RGB").save(os.path.join(out_dir, "_whale_preview.png"))
 
 
 if __name__ == "__main__":

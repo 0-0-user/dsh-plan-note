@@ -182,3 +182,8 @@ Plain JavaScript, no build step. `lib/client.js` is the browser bundle; `tools/m
 ## License
 
 [MIT](LICENSE)
+
+---
+
+<sub>Fan-made project. Not affiliated with or endorsed by DeepSeek. The whale banner is a cartoon inspired by DeepSeek's logo; DeepSeek and its marks belong to their owner.</sub>
+

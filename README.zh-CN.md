@@ -182,3 +182,8 @@ dsh plugin --profile <profile> remove dsh-plan-note
 ## 许可
 
 [MIT](LICENSE)
+
+---
+
+<sub>这是粉丝作品，与 DeepSeek 官方无关，也未获其背书。横幅里的鲸鱼是参考官方 logo 重绘的卡通形象，DeepSeek 名称与标识归其所有者。</sub>
+
