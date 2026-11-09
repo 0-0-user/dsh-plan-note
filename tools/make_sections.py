@@ -23,15 +23,16 @@ FONT_ZH = r"C:\Windows\Fonts\msyhbd.ttc"
 
 SECTIONS = [
     ("01", "intro", "简介", "Intro"),
-    ("02", "index", "目录", "Contents"),
-    ("03", "features", "主要能力", "Main features"),
-    ("04", "use-cases", "适用场景", "Where it helps"),
-    ("05", "quick-start", "快速开始", "Quick start"),
-    ("06", "usage", "使用", "Usage"),
-    ("07", "limits", "兼容与限制", "Compatibility and limits"),
-    ("08", "dev", "开发", "Development"),
-    ("09", "thanks", "致谢", "Acknowledgements"),
-    ("10", "feedback", "反馈", "Feedback"),
+    ("02", "demo", "演示示例", "Demo"),
+    ("03", "index", "目录", "Contents"),
+    ("04", "features", "主要能力", "Main features"),
+    ("05", "use-cases", "适用场景", "Where it helps"),
+    ("06", "quick-start", "快速开始", "Quick start"),
+    ("07", "usage", "使用", "Usage"),
+    ("08", "limits", "兼容与限制", "Compatibility and limits"),
+    ("09", "dev", "开发", "Development"),
+    ("10", "thanks", "致谢", "Acknowledgements"),
+    ("11", "feedback", "反馈", "Feedback"),
 ]
 
 

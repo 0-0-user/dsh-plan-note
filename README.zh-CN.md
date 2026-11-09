@@ -13,7 +13,7 @@
 [![DSH](https://img.shields.io/badge/DeepSeek%20Harness-0.2.x-4D6BFE?style=flat-square)](https://github.com/deepseek-ai/deepseek-harness)
 [![Release](https://img.shields.io/github/v/release/0-0-user/dsh-plan-note?style=flat-square&label=release)](https://github.com/0-0-user/dsh-plan-note/releases)
 
-[**快速开始**](#quick-start) · [**使用**](#usage) · [**限制**](#limits) · [**发布页**](https://github.com/0-0-user/dsh-plan-note/releases) · [English](README.md)
+[**快速开始**](#quick-start) · [**演示**](#demo) · [**使用**](#usage) · [**限制**](#limits) · [English](README.md)
 
 </div>
 
@@ -27,21 +27,47 @@ DSH 原生的计划评审只有两个按钮：**同意** 或 **要求修改**。
 
 `dsh-plan-note` 让每条意见都钉在对应的原文上，最后汇总成一份结构化反馈发回去。灵感来自 Claude Code 计划评审里的 *Add comment*。
 
-### 截图
+<a id="demo"></a>
 
-| | |
-|---|---|
-| ![空白评审](docs/01-review.png) | ![选中文字](docs/02-selection.png) |
-| ![第一条批注](docs/03-comment.png) | ![批注与整体意见](docs/04-overall.png) |
+<img src="docs/sections/zh/02-demo.png" width="100%" alt="演示示例" />
+
+### 1. 具体演示
+
+<img src="docs/01-review.png" width="100%" alt="计划评审界面" />
+
+<a id="demo-select"></a>
+
+### 2. 光标选取
+
+在计划正文里拖选任意一段，底部就会弹出批注输入框。
+
+<img src="docs/02-selection.png" width="100%" alt="选中文字" />
+
+<a id="demo-comment"></a>
+
+### 3. 添加局部批注
+
+写意见、点「添加批注」，这条批注就钉在了刚才那段原文上。此时「同意执行」和「关闭」会自动变灰。
+
+<img src="docs/03-comment.png" width="100%" alt="添加局部批注" />
+
+<a id="demo-multi"></a>
+
+### 4. 多条批注与全局批注
+
+可以继续加任意多条批注，底部的「整体意见」用来写不针对某一段的总体反馈。
+
+<img src="docs/04-overall.png" width="100%" alt="多条批注与全局批注" />
 
 <a id="index"></a>
 
-<img src="docs/sections/zh/02-index.png" width="100%" alt="目录" />
+<img src="docs/sections/zh/03-index.png" width="100%" alt="目录" />
 
 <table>
 <tr>
 <td width="60%" valign="middle">
 
+- [演示示例](#demo)
 - [主要能力](#features)
 - [适用场景](#use-cases)
 - [快速开始](#quick-start)
@@ -62,7 +88,7 @@ DSH 原生的计划评审只有两个按钮：**同意** 或 **要求修改**。
 
 <a id="features"></a>
 
-<img src="docs/sections/zh/03-features.png" width="100%" alt="主要能力" />
+<img src="docs/sections/zh/04-features.png" width="100%" alt="主要能力" />
 
 | | |
 |---|---|
@@ -75,7 +101,7 @@ DSH 原生的计划评审只有两个按钮：**同意** 或 **要求修改**。
 
 <a id="use-cases"></a>
 
-<img src="docs/sections/zh/04-use-cases.png" width="100%" alt="适用场景" />
+<img src="docs/sections/zh/05-use-cases.png" width="100%" alt="适用场景" />
 
 - 多步骤实施方案：动手写代码之前，需要把好几处细节先定下来。
 - 迁移、接口变更、灰度发布：兼容性、回滚条件、推进顺序各需要一条意见。
@@ -83,7 +109,7 @@ DSH 原生的计划评审只有两个按钮：**同意** 或 **要求修改**。
 
 <a id="quick-start"></a>
 
-<img src="docs/sections/zh/05-quick-start.png" width="100%" alt="快速开始" />
+<img src="docs/sections/zh/06-quick-start.png" width="100%" alt="快速开始" />
 
 需要 DSH 0.2.x 的 Web 客户端。三条路选一条。
 
@@ -113,7 +139,7 @@ dsh plugin --profile <profile> add dsh-plan-note
 
 <a id="usage"></a>
 
-<img src="docs/sections/zh/06-usage.png" width="100%" alt="使用" />
+<img src="docs/sections/zh/07-usage.png" width="100%" alt="使用" />
 
 ### 完整一轮
 
@@ -164,7 +190,7 @@ dsh plugin --profile <profile> add dsh-plan-note
 
 <a id="limits"></a>
 
-<img src="docs/sections/zh/07-limits.png" width="100%" alt="兼容与限制" />
+<img src="docs/sections/zh/08-limits.png" width="100%" alt="兼容与限制" />
 
 - 依赖 DSH **0.2.2-rc.1** 的 `conversation.composer` 与 `sidebar.right.pane.tab`，内核升级后可能失效
 - 只在 Web 客户端可用，没有终端界面
@@ -173,7 +199,7 @@ dsh plugin --profile <profile> add dsh-plan-note
 
 <a id="dev"></a>
 
-<img src="docs/sections/zh/08-dev.png" width="100%" alt="开发" />
+<img src="docs/sections/zh/09-dev.png" width="100%" alt="开发" />
 
 纯 JavaScript，无构建步骤。
 
@@ -183,14 +209,14 @@ lib/index.js            空的宿主半身
 cordis.patch.yml        一行 loader 条目
 tools/make_hero.py      生成 docs/hero.png
 tools/make_sections.py  生成章节横幅
-docs/                   横幅、鲸鱼标与截图
+docs/                   横幅、鲸鱼标与演示截图
 ```
 
 欢迎提 issue 和 PR，请保持 bundle 无依赖。
 
 <a id="thanks"></a>
 
-<img src="docs/sections/zh/09-thanks.png" width="100%" alt="致谢" />
+<img src="docs/sections/zh/10-thanks.png" width="100%" alt="致谢" />
 
 - [Claude Code](https://www.anthropic.com/claude-code)——本插件的 *Add comment* 交互灵感来源
 - [DeepSeek Harness](https://github.com/deepseek-ai/deepseek-harness)——插件平台与其 slot API
@@ -198,7 +224,7 @@ docs/                   横幅、鲸鱼标与截图
 
 <a id="feedback"></a>
 
-<img src="docs/sections/zh/10-feedback.png" width="100%" alt="反馈" />
+<img src="docs/sections/zh/11-feedback.png" width="100%" alt="反馈" />
 
 欢迎各路大神提供意见建议。
 

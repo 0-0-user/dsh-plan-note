@@ -13,7 +13,7 @@ Select a passage, write a comment, send one structured review — the agent stay
 [![DSH](https://img.shields.io/badge/DeepSeek%20Harness-0.2.x-4D6BFE?style=flat-square)](https://github.com/deepseek-ai/deepseek-harness)
 [![Release](https://img.shields.io/github/v/release/0-0-user/dsh-plan-note?style=flat-square&label=release)](https://github.com/0-0-user/dsh-plan-note/releases)
 
-[**Quick start**](#quick-start) · [**Usage**](#usage) · [**Limits**](#limits) · [**Releases**](https://github.com/0-0-user/dsh-plan-note/releases) · [中文](README.zh-CN.md)
+[**Quick start**](#quick-start) · [**Demo**](#demo) · [**Usage**](#usage) · [**Limits**](#limits) · [中文](README.zh-CN.md)
 
 </div>
 
@@ -27,21 +27,47 @@ DSH's plan gate gives you two buttons: **approve** or **ask for changes**. That 
 
 `dsh-plan-note` keeps every comment attached to the exact passage it talks about, then sends them back as one structured review. It is inspired by the *Add comment* flow in Claude Code's plan review.
 
-### Screenshots
+<a id="demo"></a>
 
-| | |
-|---|---|
-| ![empty review](docs/01-review.png) | ![text selected](docs/02-selection.png) |
-| ![first comment](docs/03-comment.png) | ![comments and overall note](docs/04-overall.png) |
+<img src="docs/sections/en/02-demo.png" width="100%" alt="Demo" />
+
+### 1. The demo
+
+<img src="docs/01-review.png" width="100%" alt="Plan review in the sidebar" />
+
+<a id="demo-select"></a>
+
+### 2. Selecting text
+
+Drag over any passage of the plan; the comment box opens underneath.
+
+<img src="docs/02-selection.png" width="100%" alt="Text selected" />
+
+<a id="demo-comment"></a>
+
+### 3. Adding a comment
+
+Write the remark and press **添加批注**; the comment is pinned to that passage. Approve and close are greyed out until the comment is sent.
+
+<img src="docs/03-comment.png" width="100%" alt="First comment added" />
+
+<a id="demo-multi"></a>
+
+### 4. Multiple comments and the overall note
+
+Add as many comments as you need; the overall note at the bottom holds feedback that is not tied to one passage.
+
+<img src="docs/04-overall.png" width="100%" alt="Multiple comments and overall note" />
 
 <a id="index"></a>
 
-<img src="docs/sections/en/02-index.png" width="100%" alt="Contents" />
+<img src="docs/sections/en/03-index.png" width="100%" alt="Contents" />
 
 <table>
 <tr>
 <td width="60%" valign="middle">
 
+- [Demo](#demo)
 - [Main features](#features)
 - [Where it helps](#use-cases)
 - [Quick start](#quick-start)
@@ -62,7 +88,7 @@ DSH's plan gate gives you two buttons: **approve** or **ask for changes**. That 
 
 <a id="features"></a>
 
-<img src="docs/sections/en/03-features.png" width="100%" alt="Main features" />
+<img src="docs/sections/en/04-features.png" width="100%" alt="Main features" />
 
 | | |
 |---|---|
@@ -75,7 +101,7 @@ DSH's plan gate gives you two buttons: **approve** or **ask for changes**. That 
 
 <a id="use-cases"></a>
 
-<img src="docs/sections/en/04-use-cases.png" width="100%" alt="Where it helps" />
+<img src="docs/sections/en/05-use-cases.png" width="100%" alt="Where it helps" />
 
 - Multi-step implementation plans where several details must be fixed before any code is written.
 - Migrations, API changes and rollouts where compatibility, rollback and sequencing each need a note.
@@ -83,7 +109,7 @@ DSH's plan gate gives you two buttons: **approve** or **ask for changes**. That 
 
 <a id="quick-start"></a>
 
-<img src="docs/sections/en/05-quick-start.png" width="100%" alt="Quick start" />
+<img src="docs/sections/en/06-quick-start.png" width="100%" alt="Quick start" />
 
 Requires DSH 0.2.x with the web client. Pick one install path.
 
@@ -113,7 +139,7 @@ Restart DSH (or hard-reload the web UI) after installing.
 
 <a id="usage"></a>
 
-<img src="docs/sections/en/06-usage.png" width="100%" alt="Usage" />
+<img src="docs/sections/en/07-usage.png" width="100%" alt="Usage" />
 
 ### A full round
 
@@ -164,7 +190,7 @@ Restart DSH (or hard-reload the web UI) after installing.
 
 <a id="limits"></a>
 
-<img src="docs/sections/en/07-limits.png" width="100%" alt="Compatibility and limits" />
+<img src="docs/sections/en/08-limits.png" width="100%" alt="Compatibility and limits" />
 
 - Targets DSH **0.2.2-rc.1** APIs (`conversation.composer`, `sidebar.right.pane.tab`); a future kernel may change them.
 - Web client only — there is no terminal UI.
@@ -173,7 +199,7 @@ Restart DSH (or hard-reload the web UI) after installing.
 
 <a id="dev"></a>
 
-<img src="docs/sections/en/08-dev.png" width="100%" alt="Development" />
+<img src="docs/sections/en/09-dev.png" width="100%" alt="Development" />
 
 Plain JavaScript, no build step.
 
@@ -183,14 +209,14 @@ lib/index.js            empty host half
 cordis.patch.yml        one loader row
 tools/make_hero.py      generates docs/hero.png
 tools/make_sections.py  generates the section banners
-docs/                   banner, mark and screenshots
+docs/                   banner, mark and demo screenshots
 ```
 
 Issues and pull requests are welcome. Please keep the bundle dependency-free.
 
 <a id="thanks"></a>
 
-<img src="docs/sections/en/09-thanks.png" width="100%" alt="Acknowledgements" />
+<img src="docs/sections/en/10-thanks.png" width="100%" alt="Acknowledgements" />
 
 - [Claude Code](https://www.anthropic.com/claude-code) — the inline *Add comment* flow that inspired this plugin.
 - [DeepSeek Harness](https://github.com/deepseek-ai/deepseek-harness) — the plugin platform and its slot APIs.
@@ -198,7 +224,7 @@ Issues and pull requests are welcome. Please keep the bundle dependency-free.
 
 <a id="feedback"></a>
 
-<img src="docs/sections/en/10-feedback.png" width="100%" alt="Feedback" />
+<img src="docs/sections/en/11-feedback.png" width="100%" alt="Feedback" />
 
 Feedback, suggestions and criticism are all welcome.
 
