@@ -42,7 +42,7 @@ def load_glyph(height):
     for y in range(src.height):
         for x in range(src.width):
             r, g, b, a = px[x, y]
-            if a > 128 and b > 200 and r < 160:
+            if a > 120 and not (r > 225 and g > 225 and b > 225):
                 mp[x, y] = 255
     box = mask.getbbox()
     mask = mask.crop(box)
@@ -51,6 +51,15 @@ def load_glyph(height):
     out = Image.new("RGBA", mask.size, BLUE + (255,))
     out.putalpha(mask)
     return out
+
+
+def load_lockup(height):
+    """Official whale + wordmark, kept as the original artwork."""
+    src = Image.open(LOGO).convert("RGBA")
+    box = src.split()[3].getbbox()
+    src = src.crop(box)
+    scale = height / src.height
+    return src.resize((max(1, int(src.width * scale)), height), Image.LANCZOS)
 
 
 def font(path, size):
@@ -169,11 +178,11 @@ def main():
         x = u(62 + i * 30)
         d.rectangle([x, u(58), x + u(16), u(74)], fill=color)
 
-    # brand lockup in the title bar: official whale + wordmark
-    glyph = load_glyph(u(26))
-    img.alpha_composite(glyph, (u(158), u(51)))
-    f_brand = font(FONT_ROUND, u(25))
-    d.text((u(158) + glyph.width + u(10), u(51)), "deepseek harness", font=f_brand, fill=BLUE)
+    # brand lockup in the title bar: official artwork + product suffix
+    lock = load_lockup(u(26))
+    img.alpha_composite(lock, (u(158), u(50)))
+    f_brand = font(FONT_ROUND, u(20))
+    d.text((u(158) + lock.width + u(6), u(75)), "harness", font=f_brand, fill=BLUE, anchor="ls")
 
     for i in range(52):
         x = u(760 + i * 7)
