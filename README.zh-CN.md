@@ -126,7 +126,7 @@ dsh plugin --profile <profile> add dsh-plan-note
 **Release 附件**
 
 ```bash
-dsh plugin --profile <profile> add https://github.com/0-0-user/dsh-plan-note/releases/download/v0.1.1/dsh-plan-note-0.1.1.tgz
+dsh plugin --profile <profile> add https://github.com/0-0-user/dsh-plan-note/releases/latest/download/dsh-plan-note.tgz
 ```
 
 **让 agent 装**
@@ -135,7 +135,7 @@ dsh plugin --profile <profile> add https://github.com/0-0-user/dsh-plan-note/rel
 帮我装一下 dsh-plan-note 插件，装完重启 DSH：
 1. 先找出我正在用的 DSH profile（在 ~/.dsh/profiles 下的目录名）。
 2. 执行：dsh plugin --profile <那个 profile> add dsh-plan-note
-3. 确认插件列表里出现 dsh-plan-note 0.1.1。
+3. 确认插件列表里出现 dsh-plan-note。
 如果看不出我用的是哪个 profile，直接问我。
 ```
 

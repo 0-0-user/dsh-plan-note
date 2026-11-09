@@ -1,6 +1,6 @@
 {
     "name":  "dsh-plan-note",
-    "version":  "0.1.1",
+    "version":  "0.1.2",
     "description":  "Inline annotations for DeepSeek Harness plan review: select plan text, comment, and send structured feedback back to the agent.",
     "type":  "module",
     "main":  "./lib/index.js",

@@ -126,7 +126,7 @@ dsh plugin --profile <profile> add dsh-plan-note
 **Release tarball**
 
 ```bash
-dsh plugin --profile <profile> add https://github.com/0-0-user/dsh-plan-note/releases/download/v0.1.1/dsh-plan-note-0.1.1.tgz
+dsh plugin --profile <profile> add https://github.com/0-0-user/dsh-plan-note/releases/latest/download/dsh-plan-note.tgz
 ```
 
 **Ask your agent**
@@ -135,7 +135,7 @@ dsh plugin --profile <profile> add https://github.com/0-0-user/dsh-plan-note/rel
 Install the plugin `dsh-plan-note` for me, then restart DSH:
 1. Find my active DSH profile (a folder under ~/.dsh/profiles).
 2. Run: dsh plugin --profile <that-profile> add dsh-plan-note
-3. Confirm dsh-plan-note 0.1.1 appears in the plugin list.
+3. Confirm dsh-plan-note appears in the plugin list.
 If the profile is not obvious, ask me which one to use.
 ```
 
