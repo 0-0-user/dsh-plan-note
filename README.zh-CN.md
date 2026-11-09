@@ -82,9 +82,11 @@ dsh plugin --profile <profile> add github:0-0-user/dsh-plan-note
 把下面这段丢进任意 DSH 会话，让 agent 执行：
 
 ```text
-帮我安装 dsh-plan-note 插件，然后重启应用：
-dsh plugin --profile <profile> add github:0-0-user/dsh-plan-note
-装好后确认插件列表里出现 dsh-plan-note，版本 0.1.0。
+帮我装一下 dsh-plan-note 插件，装完重启 DSH：
+1. 先找出我正在用的 DSH profile（在 ~/.dsh/profiles 下的目录名）。
+2. 执行：dsh plugin --profile <那个 profile> add github:0-0-user/dsh-plan-note
+3. 确认插件列表里出现 dsh-plan-note 0.1.0。
+如果看不出我用的是哪个 profile，直接问我。
 ```
 
 ### 3 · 从 npm 装（发布后可用）

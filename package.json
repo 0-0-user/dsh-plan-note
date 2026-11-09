@@ -26,6 +26,9 @@
     "code-review"
   ],
   "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/0-0-user/dsh-plan-note.git"

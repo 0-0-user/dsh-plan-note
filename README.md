@@ -82,9 +82,11 @@ Replace `<profile>` with your profile name (`desktop`, `web`, …). Restart DSH 
 Paste this into any DSH session and let the agent do it:
 
 ```text
-帮我安装 dsh-plan-note 插件，然后重启应用：
-dsh plugin --profile <profile> add github:0-0-user/dsh-plan-note
-装好后确认插件列表里出现 dsh-plan-note，版本 0.1.0。
+Install the plugin `dsh-plan-note` for me, then restart DSH:
+1. Find my active DSH profile (a folder under ~/.dsh/profiles).
+2. Run: dsh plugin --profile <that-profile> add github:0-0-user/dsh-plan-note
+3. Confirm dsh-plan-note 0.1.0 appears in the plugin list.
+If the profile is not obvious, ask me which one to use.
 ```
 
 ### 3 · npm (once published)
