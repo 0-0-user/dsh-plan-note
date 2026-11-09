@@ -200,7 +200,13 @@ docs/                   横幅、鲸鱼标与截图
 
 <img src="docs/sections/zh/10-feedback.png" width="100%" alt="反馈" />
 
-提 issue：<https://github.com/0-0-user/dsh-plan-note/issues>
+欢迎各路大神提供意见建议。
+
+- GitHub Issue：<https://github.com/0-0-user/dsh-plan-note/issues>
+- 小红书：1551112051
+- Bilibili：1615793632
+
+具体演示将同步发布在这两个平台上。
 
 ---
 

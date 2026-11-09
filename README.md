@@ -200,7 +200,13 @@ Issues and pull requests are welcome. Please keep the bundle dependency-free.
 
 <img src="docs/sections/en/10-feedback.png" width="100%" alt="Feedback" />
 
-Open an issue: <https://github.com/0-0-user/dsh-plan-note/issues>
+Feedback, suggestions and criticism are all welcome.
+
+- GitHub Issues: <https://github.com/0-0-user/dsh-plan-note/issues>
+- Xiaohongshu (RED): 1551112051
+- Bilibili: 1615793632
+
+Demo videos will be posted on both platforms as well.
 
 ---
 
