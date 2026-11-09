@@ -24,18 +24,46 @@ Select text → write a comment → send one structured review. The agent stays 
 
 DSH's plan gate is binary: **approve** or **ask for changes**. That is too coarse when a plan has several unrelated problems — "change step three" loses the sentence it refers to.
 
+> **Inspiration.** This plugin borrows the inline-comment experience from Claude Code's plan review: select a sentence, attach a remark, and let the agent see exactly what you meant. `dsh-plan-note` brings that interaction to DSH.
+
 `dsh-plan-note` keeps every comment attached to the exact passage it talks about, and sends them back as one structured review.
 
 ## Features
 
-| | |
-|---|---|
-| 🎯 **Anchored comments** | Drag over plan text; the quote travels with the comment |
-| 🧵 **Many at once** | Collect as many comments as you need, locate or delete each |
-| 📦 **One review** | A single structured Markdown block, agent stays in plan mode |
-| 🪟 **Sidebar, not chat** | The plan lives in the right sidebar; chat keeps a slim action bar |
-| 💾 **Draft safety** | Unsent comments survive a page refresh |
-| 🌗 **Theme aware** | Colours and font size inherit the host theme |
+### Anchored comments
+
+- Drag over any passage of the plan; the quote is captured with the comment.
+- The quote is shown in the comment list, so you always know what you reacted to.
+- Click **定位** to scroll back to that passage; the passage is underlined in red while the comment exists.
+
+### Multi-comment review
+
+- Collect as many comments as you need across headings, paragraphs, lists and code blocks.
+- Each comment can be edited before sending (delete and re-add) and carries its own note.
+- An optional **整体意见** box holds feedback that does not belong to a single passage.
+
+### One structured review
+
+- **发送批注** turns everything into a single Markdown block and returns it through DSH's existing question channel.
+- The agent stays in **plan mode** and can immediately produce a revised plan for another round.
+- Approving later is still possible: **同意执行** sends the approve label directly.
+
+### Sidebar-first layout
+
+- The plan opens in the right sidebar as a **plan notes** tab, not on top of the conversation.
+- The chat surface only keeps a slim bar: `计划批注 · N 条 · [发送批注] [同意执行] [关闭]`.
+- Sending or approving closes the sidebar automatically; the next review reopens it.
+
+### Draft protection
+
+- Unsent comments and the overall note are kept in the browser's session storage, per review.
+- Reloading the page does not lose your work.
+- While comments are unsent, **同意执行** and **关闭** are disabled, so feedback cannot be dropped silently.
+
+### Native look
+
+- Colours, borders and font size inherit the host theme; light and dark both work.
+- Markdown renders with the host's own renderer, so headings, lists, tables and code blocks look like the rest of DSH.
 
 ## Install
 
@@ -69,19 +97,37 @@ dsh plugin --profile <profile> add dsh-plan-note
 
 ## Usage
 
-1. Enter plan mode with `/plan` and let the agent submit a plan.
-2. The plan opens in the right sidebar under **Plan notes**.
-3. Select a passage → write your comment → **添加批注**.
-4. Repeat for as many passages as needed.
-5. **发送批注** sends everything, closes the sidebar, and the agent revises.
+### A full round
 
-| Button | Does |
-|---|---|
-| 发送批注 | Send the structured review |
-| 同意执行 | Approve the plan as-is |
-| 关闭 | Dismiss the review, keep the sidebar |
+1. Type `/plan` to enter plan mode.
+2. Describe the task; the agent submits a plan and DSH opens the review.
+3. The plan appears in the right sidebar under **plan notes**; the chat shows the slim bar.
+4. Select a sentence, paragraph, list item or code line.
+5. A comment box appears under the plan: write the remark, press **添加批注**.
+6. Repeat for every passage you want changed.
+7. Optionally write the overall note at the bottom.
+8. Press **发送批注**. The sidebar closes and the agent receives the review.
 
-While comments are unsent, **同意执行** and **关闭** are disabled, so feedback is never dropped silently.
+### What happens after you send
+
+- The agent reads the quoted passages plus your notes and revises the plan.
+- Plan mode stays active, so it submits a **new plan** for another review round.
+- Your previous comments are cleared; the new plan starts with an empty list.
+
+### The three buttons
+
+| Button | What it does | When it is available |
+|---|---|---|
+| 发送批注 | Sends every comment and the overall note as one structured review | Always |
+| 同意执行 | Approves the plan as-is and exits plan mode | Only when no comment is pending |
+| 关闭 | Dismisses the review; the agent returns to the normal composer | Only when no comment is pending |
+
+### Edge cases worth knowing
+
+- **Selection across bold or links** may not be highlighted after sending (the comment text itself is kept).
+- **Reloading the page** keeps unsent comments for the same review.
+- **Switching sessions** while a review is pending leaves the review answerable; the plugin re-registers when you come back.
+- **Approving with comments open** is intentionally blocked; delete or send them first.
 
 ## What the agent receives
 
