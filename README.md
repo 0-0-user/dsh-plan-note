@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="docs/whale.gif" width="420" alt="dsh-plan-note" />
+<img src="docs/hero.png" width="100%" alt="dsh-plan-note hero card" />
 
 # dsh-plan-note
 
