@@ -117,16 +117,16 @@ DSH 原生的计划评审只有两个按钮：**同意** 或 **要求修改**。
 
 需要 DSH 0.2.x 的 Web 客户端。三条路选一条。
 
-**GitHub**
-
-```bash
-dsh plugin --profile <profile> add github:0-0-user/dsh-plan-note
-```
-
-**npm**
+**npm（推荐）**
 
 ```bash
 dsh plugin --profile <profile> add dsh-plan-note
+```
+
+**Release 附件**
+
+```bash
+dsh plugin --profile <profile> add https://github.com/0-0-user/dsh-plan-note/releases/download/v0.1.1/dsh-plan-note-0.1.1.tgz
 ```
 
 **让 agent 装**
@@ -135,7 +135,7 @@ dsh plugin --profile <profile> add dsh-plan-note
 帮我装一下 dsh-plan-note 插件，装完重启 DSH：
 1. 先找出我正在用的 DSH profile（在 ~/.dsh/profiles 下的目录名）。
 2. 执行：dsh plugin --profile <那个 profile> add dsh-plan-note
-3. 确认插件列表里出现 dsh-plan-note 0.1.0。
+3. 确认插件列表里出现 dsh-plan-note 0.1.1。
 如果看不出我用的是哪个 profile，直接问我。
 ```
 

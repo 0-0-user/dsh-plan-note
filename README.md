@@ -117,16 +117,16 @@ Add as many comments as you need; the overall note at the bottom holds feedback 
 
 Requires DSH 0.2.x with the web client. Pick one install path.
 
-**GitHub**
-
-```bash
-dsh plugin --profile <profile> add github:0-0-user/dsh-plan-note
-```
-
-**npm**
+**npm (recommended)**
 
 ```bash
 dsh plugin --profile <profile> add dsh-plan-note
+```
+
+**Release tarball**
+
+```bash
+dsh plugin --profile <profile> add https://github.com/0-0-user/dsh-plan-note/releases/download/v0.1.1/dsh-plan-note-0.1.1.tgz
 ```
 
 **Ask your agent**
@@ -135,7 +135,7 @@ dsh plugin --profile <profile> add dsh-plan-note
 Install the plugin `dsh-plan-note` for me, then restart DSH:
 1. Find my active DSH profile (a folder under ~/.dsh/profiles).
 2. Run: dsh plugin --profile <that-profile> add dsh-plan-note
-3. Confirm dsh-plan-note 0.1.0 appears in the plugin list.
+3. Confirm dsh-plan-note 0.1.1 appears in the plugin list.
 If the profile is not obvious, ask me which one to use.
 ```
 
