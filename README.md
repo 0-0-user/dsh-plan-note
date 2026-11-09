@@ -65,22 +65,26 @@ Add as many comments as you need; the overall note at the bottom holds feedback 
 
 <table>
 <tr>
-<td width="60%" valign="middle">
+<td width="54%" valign="top">
 
-- [Demo](#demo)
-- [Main features](#features)
-- [Where it helps](#use-cases)
-- [Quick start](#quick-start)
-- [Usage](#usage)
-- [Compatibility and limits](#limits)
-- [Development](#dev)
-- [Acknowledgements](#thanks)
-- [Feedback](#feedback)
+<table>
+<tr><td><a href="#demo">Demo</a></td></tr>
+<tr><td><a href="#features">Main features</a></td></tr>
+<tr><td><a href="#use-cases">Where it helps</a></td></tr>
+<tr><td><a href="#quick-start">Quick start</a></td></tr>
+<tr><td><a href="#usage">Usage</a></td></tr>
+<tr><td><a href="#limits">Compatibility and limits</a></td></tr>
+<tr><td><a href="#dev">Development</a></td></tr>
+<tr><td><a href="#thanks">Acknowledgements</a></td></tr>
+<tr><td><a href="#feedback">Feedback</a></td></tr>
+</table>
 
 </td>
-<td width="40%" align="center" valign="middle">
+<td width="46%" align="center" valign="middle">
 
-<img src="docs/mark.png" width="240" alt="DeepSeek whale mark" />
+<img src="docs/mark.png" width="170" alt="DeepSeek whale mark" />
+
+<img src="docs/brand.png" width="300" alt="deepseek harness plan note" />
 
 </td>
 </tr>

@@ -65,22 +65,26 @@ DSH 原生的计划评审只有两个按钮：**同意** 或 **要求修改**。
 
 <table>
 <tr>
-<td width="60%" valign="middle">
+<td width="54%" valign="top">
 
-- [演示示例](#demo)
-- [主要能力](#features)
-- [适用场景](#use-cases)
-- [快速开始](#quick-start)
-- [使用](#usage)
-- [兼容与限制](#limits)
-- [开发](#dev)
-- [致谢](#thanks)
-- [反馈](#feedback)
+<table>
+<tr><td><a href="#demo">演示示例</a></td></tr>
+<tr><td><a href="#features">主要能力</a></td></tr>
+<tr><td><a href="#use-cases">适用场景</a></td></tr>
+<tr><td><a href="#quick-start">快速开始</a></td></tr>
+<tr><td><a href="#usage">使用</a></td></tr>
+<tr><td><a href="#limits">兼容与限制</a></td></tr>
+<tr><td><a href="#dev">开发</a></td></tr>
+<tr><td><a href="#thanks">致谢</a></td></tr>
+<tr><td><a href="#feedback">反馈</a></td></tr>
+</table>
 
 </td>
-<td width="40%" align="center" valign="middle">
+<td width="46%" align="center" valign="middle">
 
-<img src="docs/mark.png" width="240" alt="DeepSeek 鲸鱼标" />
+<img src="docs/mark.png" width="170" alt="DeepSeek 鲸鱼标" />
+
+<img src="docs/brand.png" width="300" alt="deepseek harness plan note" />
 
 </td>
 </tr>
