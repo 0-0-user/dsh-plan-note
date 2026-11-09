@@ -33,7 +33,7 @@ DSH 原生的计划评审只有两个按钮：**同意** 或 **要求修改**。
 
 ### 1. 具体演示
 
-<img src="docs/01-review.png" width="100%" alt="计划评审界面" />
+<img src="docs/demo-1-overview.png" width="100%" alt="计划评审界面" />
 
 <a id="demo-select"></a>
 
@@ -41,7 +41,7 @@ DSH 原生的计划评审只有两个按钮：**同意** 或 **要求修改**。
 
 在计划正文里拖选任意一段，底部就会弹出批注输入框。
 
-<img src="docs/02-selection.png" width="100%" alt="选中文字" />
+<img src="docs/demo-2-select.png" width="100%" alt="选中文字" />
 
 <a id="demo-comment"></a>
 
@@ -49,7 +49,7 @@ DSH 原生的计划评审只有两个按钮：**同意** 或 **要求修改**。
 
 写意见、点「添加批注」，这条批注就钉在了刚才那段原文上。此时「同意执行」和「关闭」会自动变灰。
 
-<img src="docs/03-comment.png" width="100%" alt="添加局部批注" />
+<img src="docs/demo-3-comment.png" width="100%" alt="添加局部批注" />
 
 <a id="demo-multi"></a>
 
@@ -57,7 +57,7 @@ DSH 原生的计划评审只有两个按钮：**同意** 或 **要求修改**。
 
 可以继续加任意多条批注，底部的「整体意见」用来写不针对某一段的总体反馈。
 
-<img src="docs/04-overall.png" width="100%" alt="多条批注与全局批注" />
+<img src="docs/demo-4-overall.png" width="100%" alt="多条批注与全局批注" />
 
 <a id="index"></a>
 

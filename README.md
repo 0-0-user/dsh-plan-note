@@ -33,7 +33,7 @@ DSH's plan gate gives you two buttons: **approve** or **ask for changes**. That 
 
 ### 1. The demo
 
-<img src="docs/01-review.png" width="100%" alt="Plan review in the sidebar" />
+<img src="docs/demo-1-overview.png" width="100%" alt="Plan review in the sidebar" />
 
 <a id="demo-select"></a>
 
@@ -41,7 +41,7 @@ DSH's plan gate gives you two buttons: **approve** or **ask for changes**. That 
 
 Drag over any passage of the plan; the comment box opens underneath.
 
-<img src="docs/02-selection.png" width="100%" alt="Text selected" />
+<img src="docs/demo-2-select.png" width="100%" alt="Text selected" />
 
 <a id="demo-comment"></a>
 
@@ -49,7 +49,7 @@ Drag over any passage of the plan; the comment box opens underneath.
 
 Write the remark and press **添加批注**; the comment is pinned to that passage. Approve and close are greyed out until the comment is sent.
 
-<img src="docs/03-comment.png" width="100%" alt="First comment added" />
+<img src="docs/demo-3-comment.png" width="100%" alt="First comment added" />
 
 <a id="demo-multi"></a>
 
@@ -57,7 +57,7 @@ Write the remark and press **添加批注**; the comment is pinned to that passa
 
 Add as many comments as you need; the overall note at the bottom holds feedback that is not tied to one passage.
 
-<img src="docs/04-overall.png" width="100%" alt="Multiple comments and overall note" />
+<img src="docs/demo-4-overall.png" width="100%" alt="Multiple comments and overall note" />
 
 <a id="index"></a>
 
