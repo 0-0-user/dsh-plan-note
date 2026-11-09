@@ -31,9 +31,8 @@ DSH 原生的计划评审只有两个按钮：**同意** 或 **要求修改**。
 
 | | |
 |---|---|
-| ![评审界面](docs/01-review.png) | ![批注列表](docs/02-comments.png) |
-
-> 取自真实会话；把图片放进 `docs/` 即可。
+| ![空白评审](docs/01-review.png) | ![选中文字](docs/02-selection.png) |
+| ![第一条批注](docs/03-comment.png) | ![批注与整体意见](docs/04-overall.png) |
 
 <a id="index"></a>
 

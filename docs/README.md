@@ -1,11 +1,10 @@
 # Screenshots
 
-Drop PNGs here. The READMEs reference these filenames:
+All four are cropped to the right sidebar so no conversation is visible.
 
-| File | What it should show |
+| File | Shows |
 |---|---|
-| `01-review.png` | The sidebar plan view with two or three annotations and the overall-note box |
-| `02-comments.png` | Close-up of the comment list with 定位 / 删除 actions |
-| `03-buttons.png` | The composer bar showing disabled 同意执行 / 关闭 while comments are unsent |
-
-Recommended: full-window captures at 2x, cropped to the sidebar + composer.
+| `01-review.png` | Plan opened in the sidebar, no comments yet |
+| `02-selection.png` | A passage selected, comment box open |
+| `03-comment.png` | One comment added; approve and close are disabled |
+| `04-overall.png` | Two comments plus the overall note |

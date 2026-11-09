@@ -31,9 +31,8 @@ DSH's plan gate gives you two buttons: **approve** or **ask for changes**. That 
 
 | | |
 |---|---|
-| ![review](docs/01-review.png) | ![comments](docs/02-comments.png) |
-
-> Captured from a real session; drop the images into `docs/`.
+| ![empty review](docs/01-review.png) | ![text selected](docs/02-selection.png) |
+| ![first comment](docs/03-comment.png) | ![comments and overall note](docs/04-overall.png) |
 
 <a id="index"></a>
 
