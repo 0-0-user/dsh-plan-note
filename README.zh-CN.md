@@ -11,6 +11,7 @@
 <br/>
 
 [![DeepSeek Harness](https://img.shields.io/badge/DeepSeek%20Harness-0.2.x-4D6BFE?style=flat-square)](https://github.com/deepseek-ai/deepseek-harness)
+[![npm](https://img.shields.io/npm/v/dsh-plan-note?style=flat-square)](https://www.npmjs.com/package/dsh-plan-note)
 [![License](https://img.shields.io/badge/license-MIT-2ea44f?style=flat-square)](LICENSE)
 [![Plugin](https://img.shields.io/badge/type-web%20client%20plugin-4D6BFE?style=flat-square)](#它怎么工作)
 
@@ -89,13 +90,13 @@ dsh plugin --profile <profile> add github:0-0-user/dsh-plan-note
 如果看不出我用的是哪个 profile，直接问我。
 ```
 
-### 3 · 从 npm 装（发布后可用）
+### 3 · 从 npm 装
 
 ```bash
 dsh plugin --profile <profile> add dsh-plan-note
 ```
 
-> npm 包尚未发布。发布前请用第 1 或第 2 种方式。
+已发布到 [`dsh-plan-note`](https://www.npmjs.com/package/dsh-plan-note)。
 
 ## 用法
 
