@@ -27,7 +27,7 @@ FONT_MONO = r"C:\Windows\Fonts\consola.ttf"
 FONT_MONO_B = r"C:\Windows\Fonts\consolab.ttf"
 FONT_ZH = r"C:\Windows\Fonts\msyhbd.ttc"
 FONT_CARTOON = r"C:\Windows\Fonts\comicbd.ttf"
-LOGO = r"D:\opt\tmp\ds-logo\logo.png"
+LOGO = os.path.join(os.path.dirname(os.path.abspath(__file__)), "assets", "deepseek-logo.png")
 
 
 def font(path, size):
